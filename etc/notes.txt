@@ -99,3 +99,13 @@ delete from customer.data_2022_dec;
 #connect to postgres in Python
 pip install psycopg2-binary
 
+CREATE TABLE customer2.customers AS 
+SELECT * FROM customer2.data_2022_oct 
+UNION ALL 
+SELECT * FROM customer2.data_2022_nov 
+UNION ALL 
+SELECT * FROM customer2.data_2022_dec 
+UNION ALL 
+SELECT * FROM customer2.data_2023_jan 
+UNION ALL 
+SELECT * FROM customer2.data_2023_feb
