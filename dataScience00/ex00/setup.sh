@@ -18,6 +18,6 @@ sudo systemctl start postgresql
 # Run psql as the postgres superuser
 sudo -u postgres psql <<EOF
 CREATE DATABASE ${DB};
-CREATE USER ${DB_USER} WITH LOGIN PASSWORD ${DB_USER_PASS};
+CREATE USER ${DB_USER} WITH LOGIN PASSWORD '${DB_USER_PASS}';
 GRANT ALL PRIVILEGES ON DATABASE ${DB} to ${DB_USER}; 
 EOF

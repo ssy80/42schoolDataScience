@@ -1,37 +1,47 @@
-import os
 from psycopg2 import sql, connect
 
 
 def get_db_conn():
+    """Establishes and returns a connection to the PostgreSQL database."""
 
     conn = connect(
-    host="localhost",
-    port=5432,
-    database="piscineds",
-    user="ssian",
-    password="mysecretpassword"
+        host="localhost",
+        port=5432,
+        database="piscineds",
+        user="ssian",
+        password="mysecretpassword"
     )
     return conn
 
 
 def create_table(table, cur, schema):
+    """Creates a table in the specified schema with the given structure."""
 
     create_table_sql = sql.SQL("""CREATE TABLE {sch}.{table}(
                     product_id INTEGER,
                     category_id BIGINT,
                     category_code TEXT,
                     brand TEXT
-                    );""").format(sch=sql.Identifier(schema), table=sql.Identifier(table))
+                    );""").format(
+                        sch=sql.Identifier(schema),
+                        table=sql.Identifier(table)
+                        )
     cur.execute(create_table_sql)
 
 
 def create_schema(schema, cur):
-    create_schema_sql = sql.SQL("""CREATE SCHEMA {sch};""").format(sch=sql.Identifier(schema))
+    """Creates a schema in the database."""
+
+    create_schema_sql = sql.SQL(
+        """CREATE SCHEMA {sch};"""
+        ).format(sch=sql.Identifier(schema))
     cur.execute(create_schema_sql)
 
 
 # use copy for bulk loading, insert too slow
 def load_table(filepath, cur, schema, table):
+    """Loads data from a CSV file into the specified
+     table using the COPY command."""
 
     table_name = f"{schema}.{table}"
 
@@ -49,19 +59,21 @@ def load_table(filepath, cur, schema, table):
 
 
 def main():
+    """main()"""
+
     try:
         conn = get_db_conn()
         cur = conn.cursor()
 
-        schema = "item3"
-        table = "items3"
+        schema = "items"
+        table = "items"
         filepath = "./items/item.csv"
 
         create_schema(schema, cur)
         create_table(table, cur, schema)
         print("Loading data from .csv")
         load_table(filepath, cur, schema, table)
-    
+
         conn.commit()
         cur.close()
         conn.close()

@@ -44,6 +44,22 @@ sudo apt autoclean -y
 
 
 
+# uninstall pgadmin4 and clean up
+#sudo apt remove pgadmin4
+#sudo apt purge pgadmin4  # optional: removes config files
+#sudo apt autoremove      # optional: clean up unused packages
+source ~/pgadmin4-venv/bin/activate
+pip uninstall pgadmin4
+sudo apt autoremove
+sudo apt clean
+sudo rm -rf /var/lib/pgadmin/
+sudo rm -rf /var/log/pgadmin/
+sudo rm -rf /etc/pgadmin/
+sudo rm -rf ~/.pgadmin/        # User-specific config (if exists)
+sudo rm -rf ~/.config/pgadmin/ # Another common user config location
+sudo rm -rf ~/.local/share/pgadmin/
+
+
 
 #Install pgAdmin 4 via Python
 via ex01/pgadmin.sh
