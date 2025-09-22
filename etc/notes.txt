@@ -1,0 +1,85 @@
+
+# install postgres 
+sudo apt install postgresql
+
+
+# check postgres status
+sudo systemctl status postgresql
+
+# default user
+sudo -i -u postgres
+
+# access psql
+psql
+ALTER USER postgres PASSWORD ssian12345;
+
+
+# create user 
+CREATE USER ssian WITH LOGIN PASSWORD 'mysecretpassword';
+
+
+# sequence
+sudo -u postgres psql
+CREATE DATABASE piscineds;
+CREATE USER ssian WITH LOGIN PASSWORD 'mysecretpassword';
+GRANT ALL PRIVULEGES ON DATABASE piscineds to ssian; 
+
+
+# stop postgres
+sudo systemctl stop postgresql
+
+# uninstall
+sudo apt --purge remove postgresql\* -y
+
+# delete folders
+sudo rm -rf /var/lib/postgresql/
+sudo rm -rf /etc/postgresql/
+sudo rm -rf /etc/postgresql-common/
+sudo rm -rf /var/log/postgresql/
+
+
+# clean dependencies
+sudo apt autoremove -y
+sudo apt autoclean -y
+
+
+
+
+#Install pgAdmin 4 via Python
+via ex01/pgadmin.sh
+access at: http://localhost:8080
+
+
+mkdir -p ~/pgadmin4-data
+export PGADMIN_CONFIG_HOME=~/pgadmin4-data
+
+
+#Install PostgreSQL Client Tools
+sudo apt install postgresql-client
+
+
+# LOGIN
+psql -U ssian -d piscineds -h localhost -W
+
+
+# copy from csv into table in psql
+psql -U ssian -d piscineds -h localhost -W
+
+
+
+\copy customer.data_2022_dec (event_time, event_type, product_id, price, user_id, user_session)
+FROM '/home/soonyee/42schoolDataScience/subject/customer/data_2022_dec.csv'
+DELIMITER ','
+CSV HEADER;
+
+
+
+# some SQL queries
+
+select * from customer.data_2022_dec where user_session is null;
+delete from customer.data_2022_dec;
+
+
+#connect to postgres in Python
+pip install psycopg2-binary
+
