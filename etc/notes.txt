@@ -109,3 +109,26 @@ UNION ALL
 SELECT * FROM customer2.data_2023_jan 
 UNION ALL 
 SELECT * FROM customer2.data_2023_feb
+
+
+--select count(*) from customer2.data_2022_oct;
+--select count(*) from customer2.data_2022_nov;
+--select count(*) from customer2.data_2022_dec;
+--select count(*) from customer2.data_2023_jan;
+--select count(*) from customer2.data_2023_feb;
+
+data_2022_oct
+4102283
+data_2022_nov
+4635837
+data_2022_dec
+3533286
+data_2023_jan
+4264752
+data_2023_feb
+4156682
+Total: 20692840
+
+customers
+20692840
+
