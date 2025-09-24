@@ -36,7 +36,7 @@ def create_tables(dir_path, csv_files, cur, schema):
     print(tables)
     for t in tables:
         create_table_sql = sql.SQL("""CREATE TABLE {sch}.{table}(
-                    event_time TIMESTAMPTZ,
+                    event_time TIMESTAMP,
                     event_type TEXT,
                     product_id INTEGER,
                     price NUMERIC(10,2),

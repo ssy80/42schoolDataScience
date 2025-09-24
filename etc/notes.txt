@@ -132,3 +132,52 @@ Total: 20692840
 customers
 20692840
 
+
+check total rows in customers after combined
+remove duplicates
+check total rows in customers - 19176658 
+alter table
+update customers with items - 19175318
+check total rows in customers - 19176658
+
+
+total items - 109579
+DELETE 38468
+after remove duplicate - 71111
+
+
+
+
+"""
+
+#Deletes rows based on their physical row ID (ctid) — a system column in PostgreSQL that uniquely identifies a row version inside a table.
+
+DELETE FROM customer2.customers 
+WHERE ctid IN (
+    SELECT c1.ctid
+    FROM customer2.customers c1
+    INNER JOIN customer2.customers c2 ON 
+        c1.event_type = c2.event_type 
+        AND c1.product_id = c2.product_id
+        AND c1.user_id = c2.user_id
+        AND c1.user_session = c2.user_session
+        AND c1.price = c2.price
+        AND (ABS(EXTRACT(EPOCH FROM (c1.event_time - c2.event_time))) <= 1 OR c1.event_time = c2.event_time)
+        AND c1.ctid > c2.ctid  -- Keep the earliest record
+);
+DELETE FROM customer2.customers 
+WHERE ctid IN (
+    SELECT c1.ctid
+    FROM customer2.customers c1
+    INNER JOIN customer2.customers c2 ON 
+        c1.event_type = c2.event_type 
+        AND c1.product_id = c2.product_id
+        AND c1.user_id = c2.user_id
+        AND c1.user_session = c2.user_session
+        AND c1.price = c2.price
+        AND c1.event_time BETWEEN c2.event_time - INTERVAL '1 second'
+                              AND c2.event_time + INTERVAL '1 second'
+        AND c1.ctid > c2.ctid  -- keep the earliest record
+);
+
+"""
