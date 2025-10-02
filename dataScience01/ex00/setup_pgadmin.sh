@@ -11,6 +11,13 @@ source ~/pgadmin4-venv/bin/activate
 pip install pgadmin4
 pip install psycopg2-binary
 pip install flake8
+pip install pandas
+pip install matplotlib
+pip install sqlalchemy
+pip install seaborn
+pip install numpy
+pip install scikit-learn
+
 
 # setup dirs
 sudo mkdir -p /var/log/pgadmin

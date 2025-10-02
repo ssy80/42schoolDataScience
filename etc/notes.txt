@@ -146,7 +146,7 @@ DELETE 38468
 after remove duplicate - 71111
 
 
-
+2137
 
 """
 
@@ -181,3 +181,11 @@ WHERE ctid IN (
 );
 
 """
+
+
+--select * from customer2.customers where event_type='purchase' and user_id = 474232307 ORDER BY event_time ASC;
+
+--select sum(price) from customer2.customers where event_type='purchase' AND event_time >= '2022-10-01' 
+--AND event_time < '2022-11-01';
+
+
