@@ -39,14 +39,13 @@ def plot_histogram_customer_freq(customers_df):
     sns.set_theme(style="darkgrid")
     fig, ax = plt.subplots(figsize=(8, 5))
     ax.set_yscale("log")
-    
-    max_freq = customers_groupby_df['freq'].max()
+
+    max_freq = customers_groupby_df["freq"].max()
     #bins=[0, 10, 20, 30....]
     bins = np.arange(0, max_freq + 10, 10)
     #bins = np.arange(0, 50, 10)
-    
 
-    sns.histplot(customers_groupby_df['freq'], bins=bins)
+    sns.histplot(customers_groupby_df["freq"], bins=bins)
 
     # Format Y axis with plain integers, turn off sci notation
     ax.yaxis.set_major_formatter(ticker.ScalarFormatter())
@@ -55,29 +54,28 @@ def plot_histogram_customer_freq(customers_df):
     plt.xticks(bins)
     plt.xlabel("Frequency")
     plt.ylabel("Customers")
+    plt.title("Customers Frequency")
     plt.grid(True)
     plt.show()
 
 
 def plot_histogram_customer_spending(customers_df):
-    """Plot a histogram chart of customers vs spending $"""
+    """Plot a histogram chart of customers spending $"""
 
-    print(customers_df)
     customers_groupby_df = customers_df.groupby("user_id")["sum_price"].sum()
-    print(customers_groupby_df)
     customers_groupby_df = customers_groupby_df.reset_index()
     customers_groupby_df.columns = ["user_id", "spending"]
 
     sns.set_theme(style="darkgrid")
     fig, ax = plt.subplots(figsize=(16, 5))
     ax.set_yscale("log")
-    
-    max_spending = customers_groupby_df['spending'].max()
+
+    max_spending = customers_groupby_df["spending"].max()
     #bins=[0, 10, 20, 30....]
     bins = np.arange(0, max_spending + 200, 200)
     #bins = np.arange(0, 300, 50)
 
-    sns.histplot(customers_groupby_df['spending'], bins=bins)
+    sns.histplot(customers_groupby_df["spending"], bins=bins)
 
     # Format Y axis with plain integers, turn off sci notation
     ax.yaxis.set_major_formatter(ticker.ScalarFormatter())
@@ -86,6 +84,7 @@ def plot_histogram_customer_spending(customers_df):
     plt.xticks(bins)
     plt.xlabel("Monetary value in $")
     plt.ylabel("Customers")
+    plt.title("Customers Spending")
     plt.grid(True)
     plt.show()
 
@@ -98,8 +97,8 @@ def main():
 
         schema = "customer2"
         table = "customers"
-        
         customers_df = load_df_sql(schema, table, engine)
+
         plot_histogram_customer_freq(customers_df)
         plot_histogram_customer_spending(customers_df)
 

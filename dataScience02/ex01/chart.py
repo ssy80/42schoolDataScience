@@ -32,7 +32,7 @@ def load_df_sql(schema, table, engine):
 def plot_purchases(purchases_df):
     """Plot line graph of total customers per day"""
 
-    daily_counts = purchases_df.groupby(purchases_df['event_time'].dt.date).size() #group by date - 2022-10-01
+    daily_counts = purchases_df.groupby(purchases_df["event_time"].dt.date).size() #group by date - 2022-10-01
     daily_counts_df = daily_counts.reset_index()
     daily_counts_df.columns = ["event_time", "count"]
 
@@ -49,6 +49,7 @@ def plot_purchases(purchases_df):
     plt.xlim(min_month, max_month)
     
     plt.ylabel("Number of Customers")
+    plt.xlabel("Month")
     plt.grid(True)
     plt.show()
 
@@ -58,8 +59,8 @@ def plot_purchases(purchases_df):
 def plot_sales(purchases_df):
     """Plot bar graph of sales per month"""
 
-    purchases_df['month'] = purchases_df['event_time'].dt.to_period('M')
-    monthly_sales = purchases_df.groupby('month')['sum_price'].sum()
+    purchases_df["month"] = purchases_df["event_time"].dt.to_period("M")
+    monthly_sales = purchases_df.groupby("month")["sum_price"].sum()
     monthly_sales.index = monthly_sales.index.to_timestamp()
 
     monthly_sales_df = monthly_sales.reset_index()
@@ -81,8 +82,8 @@ def plot_sales(purchases_df):
 def plot_average_sales(customers_df):
     """Plot average sales per customer"""
 
-    customers_daily = customers_df.groupby(customers_df['event_time'].dt.date).size()
-    sales_daily = customers_df.groupby(customers_df['event_time'].dt.date)['sum_price'].sum()
+    customers_daily = customers_df.groupby(customers_df["event_time"].dt.date).size()
+    sales_daily = customers_df.groupby(customers_df["event_time"].dt.date)["sum_price"].sum()
     
     customers_sales_df = customers_daily.reset_index()
     customers_sales_df.columns = ["event_time", "num_customers"]
@@ -98,8 +99,8 @@ def plot_average_sales(customers_df):
 
     min_month = customers_sales_df["event_time"].min()
     max_month = customers_sales_df["event_time"].max()
-    
     plt.xlim(min_month, max_month)
+    
     plt.ylabel("Average spend/customers in $")
     plt.grid(True)
     plt.tight_layout()

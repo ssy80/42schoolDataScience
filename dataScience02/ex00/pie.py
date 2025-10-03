@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 from sqlalchemy import create_engine
 
 
-
 def get_db_conn():
     """Establishes and returns a connection to the PostgreSQL database."""
     
@@ -25,15 +24,14 @@ def load_df_sql(schema, table, engine):
     return df
 
 
-# %1.1f%%' = 23.1%
+# %1.1f%%" = 23.1%
 def plot_pie(customers_df):
-
-    print(customers_df.head())
+    """Plot a pie chart"""
 
     plt.pie(
-        customers_df['count'],
-        labels=customers_df['event_type'],
-        autopct='%1.1f%%',
+        customers_df["count"],
+        labels=customers_df["event_type"],
+        autopct="%1.1f%%",
         startangle=180,
     )
 

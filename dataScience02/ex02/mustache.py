@@ -44,7 +44,7 @@ def plot_boxplot_zoom(customers_df):
     sns.set_theme(style="darkgrid")
     fig, ax = plt.subplots(figsize=(8, 5))
     sns.boxplot(x=customers_df["price"], showfliers=False)
-    
+
     plt.xlim(-1, 13)
     plt.xlabel("Price")
     plt.grid(True)
@@ -70,13 +70,6 @@ def plot_boxplot_avg(customers_basket_df):
     avg_basket_df = customers_basket_df.groupby("user_id")["sum_price"].mean()
     avg_basket_df = avg_basket_df.reset_index()
     avg_basket_df.columns = ["user_id", "avg_basket"]
-    print(avg_basket_df)
-
-    #max_basket = avg_basket_df.min()
-    #max_basket = avg_basket_df["avg_basket"].min()
-    #max_user = avg_basket_df[avg_basket_df["avg_basket"] == -10.52]
-    #print(max_basket)
-    #print(max_user)
 
     sns.set_theme(style="darkgrid")
     fig, ax = plt.subplots(figsize=(12, 6))
@@ -97,7 +90,6 @@ def main():
         table = "customers"
         
         customers_df = load_df_sql(schema, table, engine)
-        #print(customers_df)
         
         pd.set_option("display.float_format", "{:.6f}".format)
         print(customers_df.describe())
@@ -106,7 +98,6 @@ def main():
         plot_boxplot_zoom(customers_df)
 
         customer_basket_df = load_basket_sql(schema, table, engine)
-        #print(customer_basket_df)
         plot_boxplot_avg(customer_basket_df)
         
     except Exception as e:

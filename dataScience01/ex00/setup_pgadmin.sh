@@ -17,6 +17,7 @@ pip install sqlalchemy
 pip install seaborn
 pip install numpy
 pip install scikit-learn
+pip install tk
 
 
 # setup dirs

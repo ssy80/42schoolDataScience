@@ -35,7 +35,7 @@ def load_df_sql(schema, table, engine):
 1) Calculate the rate of decrease
 2) Find the first point where it drop less than 40%
 3) Default clusters 3 if no clear elbow, or len(k_range) if < 3
-4) Elbow Method shows diminishing returns beyond k segments
+4) Elbow Method shows diminishing returns beyond optimal k
 '''
 def get_elbow_point(sse, k_range):
     """Find the elbow point where SSE decrease slows down"""
@@ -69,14 +69,6 @@ SSE calculates the total squared distance between each data point and its assign
 def plot_elbow(customers_df):
     """Plot elbow graph to get best K value"""
 
-    '''freq = customers_df.groupby("user_id")["sum_price"].count()
-    avg_basket = customers_df.groupby("user_id")["sum_price"].mean()
-    spending = customers_df.groupby("user_id")["sum_price"].sum()
-
-    customers_features_df = pd.concat([freq, avg_basket, spending], axis=1)
-    customers_features_df = customers_features_df.reset_index()
-    customers_features_df.columns = ["user_id", "freq", "avg_basket", "spending"]'''
-
     freq = customers_df.groupby("user_id")["basket_price"].count()
     spending = customers_df.groupby("user_id")["basket_price"].sum()
 
@@ -88,11 +80,8 @@ def plot_elbow(customers_df):
     customers_features_df = customers_features_df.reset_index()
     customers_features_df.columns = ["user_id", "freq", "spending", "recency"]
 
-
     scaler = RobustScaler()
-    #features_scaled = scaler.fit_transform(customers_features_df[['freq', 'avg_basket', 'spending']])
-    features_scaled = scaler.fit_transform(customers_features_df[['freq', 'recency', 'spending']])
-    
+    features_scaled = scaler.fit_transform(customers_features_df[["freq", "recency", "spending"]])
 
     sse = []
     k_range = range(1, 11)
@@ -101,13 +90,11 @@ def plot_elbow(customers_df):
         kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
         kmeans.fit(features_scaled)
         sse.append(kmeans.inertia_)
-    print(sse)
 
     optimal_clusters = get_elbow_point(sse, k_range)
     print(f"Optimal No. of clusters is {optimal_clusters}")
 
     sns.set_theme(style="darkgrid")
-
     plt.figure(figsize=(10, 6))
     plt.plot(k_range, sse)
     plt.xlabel("No. of clusters")
@@ -125,10 +112,9 @@ def main():
 
         schema = "customer2"
         table = "customers"
-        
         customers_df = load_df_sql(schema, table, engine)
-        plot_elbow(customers_df)
 
+        plot_elbow(customers_df)
 
     except Exception as e:
         print(f"Error: {str(e)}")
