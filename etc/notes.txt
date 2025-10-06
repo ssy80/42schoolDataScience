@@ -189,3 +189,49 @@ WHERE ctid IN (
 --AND event_time < '2022-11-01';
 
 
+1210365.99 / 29923
+
+
+
+
+How K-means Handles Multiple Features:
+
+K-means uses Euclidean distance in multi-dimensional space to measure similarity between customers.
+Your Customer Data Structure:
+
+Each customer is a point in 3D space:
+
+    Dimension 1: total_spent (x-axis)
+
+    Dimension 2: avg_basket (y-axis)
+
+    Dimension 3: purchase_frequency (z-axis)
+
+
+# Example: 3 customers with 3 features each
+customer_features = pd.DataFrame({
+    'customer_id': [1, 2, 3],
+    'total_spent': [100, 500, 300],      # X coordinate
+    'avg_basket': [25, 75, 50],          # Y coordinate  
+    'purchase_frequency': [4, 6, 8]      # Z coordinate
+})
+
+# For k=2 clusters, K-means starts with 2 random points in 3D space
+# Example initial centroids:
+centroid_1 = [200, 40, 5]  # A point in the 3D feature space
+centroid_2 = [400, 60, 7]  # Another point in the 3D feature space
+
+def euclidean_distance_3d(point1, point2):
+    """Calculate distance between two points in 3D space"""
+    return np.sqrt(
+        (point1[0] - point2[0])**2 +  # total_spent difference
+        (point1[1] - point2[1])**2 +  # avg_basket difference  
+        (point1[2] - point2[2])**2    # frequency difference
+    )
+
+# Example: Customer 1 [100, 25, 4] distances:
+customer_1 = [100, 25, 4]
+dist_to_centroid_1 = euclidean_distance_3d(customer_1, centroid_1)  # e.g., 120.4
+dist_to_centroid_2 = euclidean_distance_3d(customer_1, centroid_2)  # e.g., 350.2
+
+# Customer gets assigned to CLOSEST centroid (Cluster 1 in this case)
