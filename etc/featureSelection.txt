@@ -250,4 +250,55 @@ steps = [
         'X_test': 'Features for final testing (if you have separate test set)',
         'y_test': 'True labels for final testing'
     }
-    
+
+
+        X = Features (input data) | y = Target (what we predict)
+
+    _train = For training | _val = For validation
+
+    Always keep X and y separate but corresponding
+
+    Standard pattern: model.fit(X_train, y_train) then model.predict(X_val)
+
+    Compare predictions with y_val to get true performance
+
+This structure is the foundation of all machine learning workflows! 
+
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+parameters = {
+        'X': 'Your features DataFrame (all columns except target)',
+        'y': 'Your target Series (what you want to predict)',
+        'test_size': '0.2 = 20% of data goes to validation, 80% to training',
+        'random_state': '42 = Ensures reproducible splits (same every time)',
+        'stratify': 'Optional: Preserves class distribution (e.g., 50% Jedi, 50% Sith)'
+    }
+
+reasons = [
+        "BALANCE: 80% training gives enough data to learn patterns",
+        "RELIABLE VALIDATION: 20% is enough for statistically significant evaluation",
+        "INDUSTRY STANDARD: Most common split ratio in machine learning",
+        "COMPUTATION: Reasonable training time with good validation",
+        "DATA EFFICIENCY: Maximizes training data while maintaining evaluation quality"
+    ]
+
+
+Important:
+
+Use stratify=df['knight'] only for classification problems (because “knight” is categorical).
+
+For regression, you should not use stratify.
+
+Regression is used when your target (label) is a continuous numeric value — something that can take on any number within a range.
+
+Summary: Regression vs Classification
+Type	Target Variable	Example Problem	Example Algorithms
+Regression	Continuous (real numbers)	Predicting a house price ($450,000)	Linear Regression, RandomForestRegressor, XGBoostRegressor
+Classification	Categorical (discrete classes)	Predicting whether a person is a Jedi or Sith	Logistic Regression, RandomForestClassifier, SVM, Neural Network
+
+
+
+A confusion matrix is a table used to evaluate the performance of a classification model — 
+it shows how well your model’s predictions match the true labels.
+
+The correlation heatmap will help you identify which features are strongly related (values close to 1 or -1) 
+and which features might help distinguish between Jedi and Sith characteristics!
