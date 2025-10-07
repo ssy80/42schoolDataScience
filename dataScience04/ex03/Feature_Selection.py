@@ -1,9 +1,6 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import numpy as np
-from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler
-from sklearn.decomposition import PCA
+from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 
 def load(path: str) -> pd.DataFrame:
@@ -19,6 +16,30 @@ def load(path: str) -> pd.DataFrame:
     return df
 
 
+def cal_vif(df, vif_threshold):
+    """Calculate Variance Inflation Factor (VIF) for each feature in df"""
+    
+    features_df = df.drop("knight", axis=1)
+    
+    while True:
+
+        vif_df = pd.DataFrame()
+        vif_df["feature"] = features_df.columns
+
+        vif_df["vif"] = [variance_inflation_factor(features_df.values, i)
+                        for i in range(len(features_df.columns))]
+
+        vif_df = vif_df.sort_values(by="vif", ascending=False) # biggest value on top
+
+        if len(vif_df) > 0 and vif_df.iloc[0]["vif"] >= vif_threshold:
+            features_df = features_df.drop(vif_df.iloc[0]["feature"], axis=1) # Delete feature
+        else:
+            break
+
+    vif_df["tolerance"] = 1 / vif_df["vif"]
+    print(vif_df)
+
+
 def main():
     """main()"""
 
@@ -28,7 +49,7 @@ def main():
 
         train_knight_df = load(train_knight_filepath)
 
-        print(train_knight_df)
+        cal_vif(train_knight_df, 5)
 
     except Exception as e:
         print(f"Error: {str(e)}")

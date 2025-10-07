@@ -22,14 +22,14 @@ def load(path: str) -> pd.DataFrame:
 
 
 '''
-80% training gives enough data to learn patterns
-20% is enough for statistically significant evaluation
+70-80% training gives enough data to learn patterns
+20-30% is enough for statistically significant evaluation
 INDUSTRY STANDARD: Most common split ratio in machine learning
 '''
 def split_training_validation(df, to_save_train_filename, to_save_val_filename):
     """Split df into training and validation set"""
 
-    train_df, val_df = train_test_split(df, test_size=0.2, stratify=df["knight"], random_state=42)
+    train_df, val_df = train_test_split(df, test_size=0.3, stratify=df["knight"], random_state=42)
 
     train_df.to_csv(to_save_train_filename, index=False)
     val_df.to_csv(to_save_val_filename, index=False)
