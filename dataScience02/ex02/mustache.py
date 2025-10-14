@@ -38,7 +38,7 @@ def plot_boxplot(customers_df):
     plt.show()
 
 
-def plot_boxplot_zoom(customers_df):
+'''def plot_boxplot_zoom(customers_df):
     """Plot a boxplot of purchase items without outliers from price -1 to 13"""
 
     sns.set_theme(style="darkgrid")
@@ -46,6 +46,25 @@ def plot_boxplot_zoom(customers_df):
     sns.boxplot(x=customers_df["price"], showfliers=False)
 
     plt.xlim(-1, 13)
+    plt.xlabel("Price")
+    plt.grid(True)
+    plt.show()'''
+
+
+def plot_boxplot_zoom(customers_df):
+    """Plot a boxplot of purchase items without outliers"""
+
+    sns.set_theme(style="darkgrid")
+    fig, ax = plt.subplots(figsize=(8, 5))
+    sns.boxplot(x=customers_df["price"], showfliers=False)
+
+    q1 = customers_df["price"].quantile(0.25)
+    q3 = customers_df["price"].quantile(0.75)
+    iqr = q3 - q1
+    lower = q1 - 1.5 * iqr
+    upper = q3 + 1.5 * iqr
+    
+    plt.xlim(lower - 10, upper + 10)
     plt.xlabel("Price")
     plt.grid(True)
     plt.show()
@@ -64,7 +83,7 @@ def load_basket_sql(schema, table, engine):
     return df
 
 
-def plot_boxplot_avg(customers_basket_df):
+'''def plot_boxplot_avg(customers_basket_df):
     """Plot boxplot for average basket per user"""
 
     avg_basket_df = customers_basket_df.groupby("user_id")["sum_price"].mean()
@@ -76,6 +95,28 @@ def plot_boxplot_avg(customers_basket_df):
     sns.boxplot(x=avg_basket_df["avg_basket"])
 
     plt.xlim(-15, 105)
+    plt.grid(True)
+    plt.show()'''
+
+
+def plot_boxplot_avg(customers_basket_df):
+    """Plot boxplot for average basket per user"""
+
+    avg_basket_df = customers_basket_df.groupby("user_id")["sum_price"].mean()
+    avg_basket_df = avg_basket_df.reset_index()
+    avg_basket_df.columns = ["user_id", "avg_basket"]
+
+    sns.set_theme(style="darkgrid")
+    fig, ax = plt.subplots(figsize=(8, 5))
+    sns.boxplot(x=avg_basket_df["avg_basket"])
+
+    q1 = avg_basket_df["avg_basket"].quantile(0.25)
+    q3 = avg_basket_df["avg_basket"].quantile(0.75)
+    iqr = q3 - q1
+    lower = q1 - 1.5 * iqr
+    upper = q3 + 1.5 * iqr
+    
+    plt.xlim(lower - 10, upper + 10)
     plt.grid(True)
     plt.show()
 

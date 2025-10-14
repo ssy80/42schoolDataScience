@@ -59,13 +59,6 @@ def plot_train_hist(features, df):
         sns.histplot(data=jedi_df, x=feature, ax=axes[i], bins=42, color="blue", alpha=0.5, label="Jedi")
         sns.histplot(data=sith_df, x=feature, ax=axes[i], bins=42, color="green", alpha=0.5, label="Sith")
 
-        '''jedi_mean = jedi_df[feature].mean()
-        sith_mean = sith_df[feature].mean()
-        axes[i].axvline(jedi_mean, color='blue', linestyle='--', linewidth=2, alpha=0.8)
-        axes[i].axvline(sith_mean, color='green', linestyle='--', linewidth=2, alpha=0.8)
-        axes[i].axvspan(min(jedi_mean, sith_mean), max(jedi_mean, sith_mean), 
-                       alpha=0.1, color='purple', label='Overlap Zone')'''
-
         axes[i].set_title(f"{feature}")
         axes[i].set_xlabel("")
         axes[i].set_ylabel("")
@@ -73,6 +66,7 @@ def plot_train_hist(features, df):
 
     plt.tight_layout()
     plt.show()
+
 
 def main():
     """main()"""
@@ -88,10 +82,9 @@ def main():
         features = test_knight_df.columns
 
         train_knight_df = load(train_knight_filepath)
-        print(train_knight_df)
         plot_train_hist(features, train_knight_df)
         
-        
+
     except Exception as e:
         print(f"Error: {str(e)}")
 
