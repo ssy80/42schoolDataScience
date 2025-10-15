@@ -50,18 +50,10 @@ def normalization_plot(test_knight_df, train_knight_df):
     train_features_df = train_features_df.drop("knight", axis=1)
     train_features_df_columns = train_features_df.columns
 
-    # before standard scaling
-    print(train_features_df)
-    print("-" * 50)
-
     # scale
     scaler = MinMaxScaler()
     train_features_scaled = pd.DataFrame(scaler.fit_transform(train_features_df))
     train_features_scaled.columns = train_features_df_columns
-
-    # after standard scaling
-    print(train_features_scaled)
-    print("-" * 50)
     
     # subject example
     print(train_features_df.iloc[[360],:])
@@ -73,7 +65,6 @@ def normalization_plot(test_knight_df, train_knight_df):
 
     # plot for train_knight_df
     plot_scatter_train(train_features_scaled)
-
 
     # scale test_knight_df
     test_features_columns = test_knight_df.columns

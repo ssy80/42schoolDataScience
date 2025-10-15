@@ -2,7 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-from sklearn.preprocessing import OneHotEncoder
 
 
 def load(path: str) -> pd.DataFrame:
@@ -16,6 +15,7 @@ def load(path: str) -> pd.DataFrame:
         print(f"Error loading dataset: {str(e)}")
         return None
     return df
+
 
 '''
 Correlation indicates the strength and direction of a linear 
@@ -44,7 +44,6 @@ def main():
 
     try:
  
-        test_knight_filepath = "./Test_knight.csv"
         train_knight_filepath = "./Train_knight.csv"
 
         train_knight_df = load(train_knight_filepath)

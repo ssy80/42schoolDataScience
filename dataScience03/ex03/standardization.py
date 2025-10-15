@@ -39,19 +39,11 @@ def standardization_plot(train_knight_df):
     features_df = features_df.drop("knight", axis=1)
     features_df_columns = features_df.columns
 
-    # before standard scaling
-    print(features_df)
-    print("-" * 50)
-
     # scale
     scaler = StandardScaler()
     features_scaled = pd.DataFrame(scaler.fit_transform(features_df))
     features_scaled.columns = features_df_columns
 
-    # after standard scaling
-    print(features_scaled)
-    print("-" * 50)
-    
     # subject example
     print(features_df.iloc[[360],:])
     print("-" * 50)
@@ -59,8 +51,10 @@ def standardization_plot(train_knight_df):
 
     # add back knight col
     features_scaled = pd.concat([features_scaled, knight_df], axis=1)
-
     plot_scatter(features_scaled)
+
+    #features_df = pd.concat([features_df, knight_df], axis=1)
+    #plot_scatter(features_df)
 
 
 def main():

@@ -28,12 +28,18 @@ No correlation → points look like a cloud with no clear pattern.
 Strength of correlation →
 Tight clustering around a line = strong correlation.
 Wide scatter = weak correlation.
+Empowered  Stims  knight
+0        5.0    2.5    Sith  → Green point at (5.0, 2.5)
+1        3.0    4.0    Jedi  → Blue point at (3.0, 4.0)
+2        6.0    1.0    Sith  → Green point at (6.0, 1.0)
 '''
 def plot_scatter(test_knight_df, train_knight_df):
     """Plot scatterplot for selected features"""
 
     fig, axes = plt.subplots(2, 2, figsize=(8, 5))
     axes = axes.flatten()
+
+    #print(train_knight_df[train_knight_df["knight"] == 'Jedi'].head(40))
 
     sns.scatterplot(data=train_knight_df, x="Empowered", y="Stims", hue="knight", ax=axes[0], alpha=0.5, palette={"Sith": "green", "Jedi": "blue"})
     axes[0].legend(loc='upper left')
