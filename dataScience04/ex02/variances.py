@@ -28,7 +28,6 @@ def plot_line(cumulative_variances):
         "cumulative_variances": cumulative_variances,
         "components": components
         })
-    #print(variance_df)
 
     fig, ax = plt.subplots(figsize=(8, 5))
     sns.lineplot(
@@ -37,10 +36,24 @@ def plot_line(cumulative_variances):
         y='cumulative_variances'
         )
 
+    plt.xlabel("No. of Components")
+    plt.ylabel("Explained Variance (%)")
     plt.tight_layout()
     plt.show()
 
 
+'''
+PCA is a dimensionality reduction technique that:
+    Transforms correlated variables into uncorrelated components
+    Finds the directions of maximum variance in the data
+    Orders components by importance (most variance first)
+When PCA says "Component 1 explains 45% of variance" it means:
+    This component captures 45% of the total spread/dispersion in your data
+    The remaining components capture smaller amounts of dispersion
+    High variance components represent the most important patterns/directions in your data
+Key Insight
+Variance = Information in data analysis. Components with higher variance contain more information about your dataset's structure!
+'''
 def variances(df):
     """Count variances"""
 
@@ -49,9 +62,6 @@ def variances(df):
     scaler = StandardScaler()
     features_scaled = scaler.fit_transform(features_df)
     features_scaled_df = pd.DataFrame(features_scaled, columns=features_df.columns)
-
-    #features_var = features_scaled_df.var().sort_values(ascending=False)
-    #print(features_var)
 
     pca = PCA()
     pca.fit(features_scaled_df)

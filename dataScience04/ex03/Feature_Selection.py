@@ -16,6 +16,16 @@ def load(path: str) -> pd.DataFrame:
     return df
 
 
+'''
+Iteratively removes features with high VIF until all features meet the threshold
+VIF (Variance Inflation Factor) measures how much a feature is correlated with other features
+Tolerance = 1/VIF (lower tolerance = higher multicollinearity)
+    VIF < 5: Low multicollinearity (good)
+    VIF 5-10: Moderate multicollinearity
+    VIF > 10: High multicollinearity (problematic)
+Treats feature i as the dependent variable
+Regresses it against ALL other features
+'''
 def cal_vif(df, vif_threshold):
     """Calculate Variance Inflation Factor (VIF) for each feature in df"""
     

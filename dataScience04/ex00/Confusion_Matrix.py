@@ -39,7 +39,7 @@ A confusion matrix is a table used to evaluate the performance of a classificati
 Accuracy	            (TP + TN) / (TP + TN + FP + FN)	Overall correctness
 Precision	            TP / (TP + FP)	When it predicts “Yes”, how often is it correct
 Recall (Sensitivity)	TP / (TP + FN)	How many actual “Yes” it correctly finds
-F1-score	            2 × (Precision × Recall) / (Precision + Recall)	Balance between precision and recall
+F1-score	            2 * (Precision * Recall) / (Precision + Recall)	Balance between precision and recall
 Each class has its own set of TP, FP, FN, TN depending on which class you treat as “positive”.
 truth/predict    Jedi   Sith
 Jedi           TP        FN  
