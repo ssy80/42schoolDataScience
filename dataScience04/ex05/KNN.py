@@ -4,7 +4,6 @@ import seaborn as sns
 import numpy as np
 import sys
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler
 from sklearn.metrics import precision_score, accuracy_score, f1_score
 
@@ -38,7 +37,7 @@ def plot_knn(df, metric):
 K-Nearest Neighbors (KNN) is a simple yet powerful machine learning algorithm 
 used for both classification and regression tasks. It's called an instance-based 
 or lazy learning algorithm because it doesn't build an explicit model during training
-- it simply stores all the training data.
+- it simply stores all the training data. makes predictions based on similarity
 GridSearchCV can be used for all classifier/regression
 scoring='precision_macro' is a way to calculate precision for multi-class classification problems 
 '''
@@ -75,9 +74,10 @@ def knn(training_df, val_df, test_df):
     results_df = pd.DataFrame.from_dict(results, orient="index")
     results_df = results_df.reset_index()
     results_df = results_df.rename(columns={"index": "k"})
-    print(results_df)
+    #print(results_df)
 
     plot_knn(results_df, "precision")
+    plot_knn(results_df, "accuracy")
 
     # find knn with best precision
     best_row_id = results_df["precision"].idxmax()

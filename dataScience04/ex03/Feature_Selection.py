@@ -17,6 +17,11 @@ def load(path: str) -> pd.DataFrame:
 
 
 '''
+Variance Inflation Factor (VIF) is used to detect multicollinearity in regression analysis. 
+Multicollinearity occurs when two or more independent variables in a regression model are highly correlated with each other.
+    Identify redundant features that provide the same information
+    Improve model stability and interpretability
+    Prevent overfitting in regression models
 Iteratively removes features with high VIF until all features meet the threshold
 VIF (Variance Inflation Factor) measures how much a feature is correlated with other features
 Tolerance = 1/VIF (lower tolerance = higher multicollinearity)

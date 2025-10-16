@@ -3,8 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier, plot_tree
-from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.metrics import accuracy_score, classification_report, f1_score, precision_recall_fscore_support
+from sklearn.metrics import accuracy_score, f1_score
 from sklearn.preprocessing import LabelEncoder
 from sklearn import tree
 import sys
@@ -46,6 +45,15 @@ def plot_d_tree(dt, df):
 
 '''
 Decision Trees Don't Need Low VIF
+Decision Tree using Gini impurity 
+The DecisionTreeClassifier chooses the initial root node through an exhaustive search that finds 
+the single best feature and split point that maximizes the reduction in impurity across the entire dataset.
+    1)Start with the entire dataset at the root node.
+    2)Select the best feature to split the data (based on measures like Gini impurity).
+    3)Create child nodes for each possible value of the selected feature.
+    4)Repeat steps 2-3 for each child node until a stopping criterion is met 
+    (e.g., maximum depth reached, minimum samples per leaf, or pure leaf nodes).
+    5)Assign the majority class to each leaf node.
 '''
 def dt(training_df, val_df, test_df):
     """Perform decision tree classifying"""
@@ -54,7 +62,7 @@ def dt(training_df, val_df, test_df):
     X_train = training_df.drop("knight", axis=1)
     y_train = training_df["knight"]
     
-    # Separate features and target for validation set  
+    # Separate features and target for validation set
     X_test = val_df.drop("knight", axis=1)
     y_test = val_df["knight"]
 
@@ -69,7 +77,7 @@ def dt(training_df, val_df, test_df):
     dt.fit(X_train, y_train)
 
     y_pred = dt.predict(X_test)
-    #print(y_pred)
+
     accuracy = accuracy_score(y_test, y_pred)
     print(f"Accuracy: {accuracy}")
 

@@ -4,7 +4,6 @@ import seaborn as sns
 import numpy as np
 import sys
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler
 from sklearn.ensemble import VotingClassifier
 from sklearn.tree import DecisionTreeClassifier
@@ -45,6 +44,10 @@ def imbalance_check(train_df):
     print(f"Imbalance ratio: {imbalance_ratio:.1f}")
 
 
+'''
+Logistic Regression models the probability that an input belongs to a particular class using the sigmoid function. 
+It's a linear model that outputs probabilities between 0 and 1
+'''
 def voting(training_df, val_df, test_df):
     """Voting classifier with KNN, Logistic Regression and Decision Tree"""
 
@@ -128,7 +131,7 @@ def main():
         training_df = load("./Training_knight.csv")
         val_df = load("./Validation_knight.csv")
         
-        imbalance_check(train_df)
+        #imbalance_check(train_df)
         voting(training_df, val_df, test_df)
 
     except Exception as e:

@@ -450,3 +450,50 @@ calculates the weighted average Gini Impurity of the two child nodes that would 
 
 Select the Best Split: The algorithm compares the impurity of the root node with the weighted impurity of the potential child nodes. 
 The feature and split point that result in the largest drop in impurity (the greatest Gini Gain) is chosen for the root node's split
+
+
+K-Nearest Neighbors (KNN)
+
+Yes! GridSearchCV can be used for ALL of these - Decision Trees, Random Forests, and Regression problems. 
+It's a universal hyperparameter tuning tool.
+
+Basic Cross Validation:
+model = RandomForestClassifier()
+scores = cross_val_score(model, X, y, cv=5, scoring='accuracy')
+
+
+
+When to Use VIF
+Use VIF for:
+
+    Linear Regression models
+    Logistic Regression (can also benefit)
+    Feature selection before modeling
+    Data understanding - identifying redundant features
+
+
+Variance Inflation Factor (VIF) is used to detect multicollinearity in regression analysis. Multicollinearity occurs when two or more independent variables in a regression model are highly correlated with each other.
+🎯 What is VIF Used For?
+Primary Purpose:
+
+    Identify redundant features that provide the same information
+
+    Improve model stability and interpretability
+
+    Prevent overfitting in regression models
+
+
+The DecisionTreeClassifier chooses the initial root node through an exhaustive search that finds the single best feature and split point that maximizes the reduction in impurity across the entire dataset.
+🎯 The Root Node Selection Process
+Step-by-Step Algorithm:
+
+    Start with entire dataset at the root node
+
+    For each feature in the dataset
+
+    For each possible split point within that feature
+
+    Calculate impurity reduction for that split
+
+    Choose the feature and split with maximum impurity reduction
+    
